@@ -1,0 +1,41 @@
+
+syntax = "proto3";
+option go_package = "/proto_gen";
+import "google/protobuf/timestamp.proto";
+
+
+message product {
+    int32 id = 1;
+    string name = 2;
+    double price = 3;
+    string image = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+}
+
+service ProductService {
+    rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+    rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse);
+}
+message CreateProductRequest {
+    string name = 1;
+    double price = 2;
+    string image = 3;
+}
+message CreateProductResponse {
+    product product = 1;
+}
+message GetProductRequest {
+    int32 id = 1;
+}
+message GetProductResponse {
+    product product = 1;
+}
+message GetProductsRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+message GetProductsResponse {
+    repeated product products = 1;
+}
