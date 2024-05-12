@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  app:
+    environment:
+      PORT: ${PORT}
+      ORDER_URL: ${ORDER_URL}
+      PRODUCT_URL: ${PRODUCT_URL}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:4002
+    networks:
+      - store
+
+networks:
+  store:
+    external: true
