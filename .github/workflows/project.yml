@@ -16,3 +16,34 @@ jobs:
       - name: run make file
         run: make run
 
+  test_all_service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22.2
+      - name: make install-migration
+        run: make install-migration
+      
+      - name: install go dependencies
+        run: go mod download
+        working-directory: ./order
+      - name: run test order service
+        run: yes| make test
+        working-directory: ./order
+
+      - name: install go dependencies
+        run: go mod download
+        working-directory: ./product
+      - name: run test product service
+        run: yes| make test
+        working-directory: ./product
+
+      - name: install go dependencies
+        run: go mod download
+        working-directory: ./product_order
+      - name: run test product_order service
+        run: make test
+        working-directory: ./product_order

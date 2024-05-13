@@ -16,4 +16,28 @@ jobs:
       - name: run docker compose
         run: docker-compose -f product/docker-compose.yml up -d
 
-  
+  test_product_service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22.2
+      - name: make install-migration
+        run: make install-migration
+
+      - name: install go dependencies
+        run: go mod download
+        working-directory: ./product
+
+      - name: install staticcheck
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+
+      - name: aduit and lint and vender and  Vetting
+        run: make audit
+        working-directory: ./product
+
+      - name: run test
+        run: yes| make test
+        working-directory: ./product
