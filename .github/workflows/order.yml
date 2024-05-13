@@ -1,6 +1,5 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-
 name: Order_microservice
 
 on:
@@ -16,3 +15,28 @@ jobs:
         run: docker network create store
       - name: run docker compose
         run: docker-compose -f order/docker-compose.yml up -d
+
+  test_order_service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22.2
+      - name: make install-migration
+        run: make install-migration
+      - name: install go dependencies
+        run: go mod download
+        working-directory: ./order
+
+      - name: install staticcheck
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+        
+      - name: aduit and lint and vender and  Vetting
+        run: make audit
+        working-directory: ./order
+
+      - name: run test
+        run: yes| make test
+        working-directory: ./order
