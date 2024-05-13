@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project demonstrates a real-world implementation of a microservices architecture using Golang, Fiber, SQLC, gRPC, PostgreSQL, Docker, and Docker Compose. The project consists of three main services: Order Service, Product Service, and API Gateway (Product_Order).
+This project demonstrates a real-world implementation of a microservices architecture using Golang, Fiber, SQLC, gRPC, PostgreSQL,CI, Docker, and Docker Compose. The project consists of three main services: Order Service, Product Service, and API Gateway (Product_Order).
 
 ### Goal
 

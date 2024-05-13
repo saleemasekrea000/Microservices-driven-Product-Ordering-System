@@ -7,7 +7,7 @@ import (
 	"product_order/internal/adapters/product"
 	"product_order/internal/application/core/api"
 )
-// main 
+
 func main() {
 	config := config.New()
 	orderProt, err := order.New(config.OrderUrl)
